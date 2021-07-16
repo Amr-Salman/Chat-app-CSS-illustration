@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <title>Frontend Mentor | [Challenge Name Here]</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: 'Rubik', sans-serif;
+      font-size: 16px;
+    }
+    .landing {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      align-items: center;
+      padding: 3rem 1.5rem;
+    }
+    .landing::before {
+      content: '';
+      background-image: linear-gradient(hsl(293, 100%, 63%), hsl(264, 100%, 61%));
+      position: absolute;
+      top: -35%;
+      left: -50%;
+      width: 100%;
+      height: 100%;
+      border-radius: 4000px;
+      z-index: -1;
+    }
+    .chat {
+      background-color: hsl(270, 20%, 96%);
+      width: 90%;
+      border: 1em solid #fff;
+      border-radius: 25px;
+      margin-bottom: 5rem;
+      box-shadow: 5px 5px 50px rgba(0, 0, 0, 0.2);
+    }
+    .chat-header {
+      width: 100%;
+      padding: 2rem 1rem 1rem;
+      background-image: linear-gradient(to right, hsl(264, 100%, 61%), hsl(293, 100%, 63%));
+      display: flex;
+      justify-content: stretch;
+      align-items: center;
+      color: #fff;
+      border-radius: 11px 11px 0 0;
+      position: relative;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    }
+    .chat-header::before {
+      content: '';
+      width: 8rem;
+      height: 2rem;
+      background: #FFF;
+      position: absolute;
+      top: 0px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 20px;
+    }
+    .chat-header__back {
+      text-decoration: none;
+      color: #fff;
+    }
+    .chat-header__img {
+      width: 30px;
+      height: 30px;
+      margin: 0 10px;
+      border: 1px solid #fff;
+      border-radius: 50%;
+    }
+    .chat-header__person-name {
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .chat-header__status {
+      font-size: 11px;
+      font-weight: 400;
+      color: hsl(276, 100%, 81%);
+    }
+    .chat-header__options {
+      margin-left: auto;
+      list-style: none;
+    }
+    .chat-header__options li {
+      width: 3px;
+      height: 3px;
+      margin-top: 3px;
+      background:#fff;
+    }
+    .chat-body {
+      padding: 0.8rem;
+    }
+    .chat-message {
+      max-width: 75%;
+      border-radius: 10px;
+      font-weight: 400;
+      margin-bottom: 1em;
+      font-size: 11px;
+    }
+    .chat-message_sent-image img {
+      border-radius: 8px;
+      width: 30%;
+      height: 100%;
+    }
+    .chat-message_sent-image {
+      margin-left: auto;
+      display: flex;
+      justify-content: space-between;
+    }
+    .chat-message_received {
+      background-color: #EDE5F4;
+      color: hsl(276, 55%, 52%);
+      padding: 10px;
+      border-bottom-left-radius: 4px;
+    }
+    .chat-message_sent {
+      background-color: #FFF;
+      color: hsl(271, 15%, 43%);
+      padding: 10px;
+      margin-left: auto;
+      border-bottom-right-radius: 4px;
+    }
+    .offer-message {
+      background-image: linear-gradient(to right, hsl(293, 100%, 63%), hsl(264, 100%, 61%));
+      padding: 0.5rem;
+      color: #fff;
+      display: flex;
+    }
+    input[type=radio] {
+      opacity: 0;
+      position: fixed;
+      width: 0;
+    }
+    label {
+      display: inline-block;
+      background-color: transparent;
+      width: 13px;
+      height: 13px;
+      border: 1px solid hsl(289, 100%, 72%);
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    p {
+      font-size: 11px;
+    }
+    span {
+      margin-left: auto;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .write-message {
+      width: 95%;
+      margin: auto;
+      position: relative;
+      margin-bottom: 0.5rem;
+    }
+    .write-message input {
+      display: block;
+      width: 100%;
+      font-size: 12px;
+      border-radius: 25px;
+      outline: none;
+      border: none;
+      padding: 0.8rem 0.8rem;
+    }
+    .write-message input::placeholder {
+      color: hsl(206, 6%, 79%);
+    }
+    button[type=submit] {
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 5px;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      color: #fff;
+      background: hsl(271, 36%, 24%);
+      border: none;
+      outline: none;
+    }
+    .app-desc {
+      text-align: center;
+    }
+    .app-desc__heading {
+      font-size: 2rem;
+      font-weight: 700;
+      color: hsl(271, 36%, 24%);
+      margin-bottom: 2rem;
+    }
+    .app-desc__desc {
+      width: 90%;
+      margin: auto;
+      color: hsl(270, 7%, 64%);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    @media (min-width:400px) {
+      .chat {
+        width: 300px;
+      }
+      .landing::before  {
+        width: 80%;
+      }
+    }
+    @media (min-width:768px) {
+      .landing {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        
+      }
+      .landing::before  {
+        width: 60%;
+        left: -30%;
+      }
+      .mobile-review, .app-desc {
+        width: 45%;
+      }
+      .chat {
+        margin: auto;
+        width: 300px;
+      }
+      .app-desc {
+      text-align: left;
+    }
+    .app-desc__desc {
+      margin: 0;
+    }
+    }
+    @media (min-width:850px) {
+      .mobile-review, .app-desc {
+        width: 50%;
+      }
+    }
+    @media (min-width:1000px) {
+      .landing::before  {
+        width: 30%;
+        left: 0;
+      }
+    }
+  </style>
+</head>
+<body> 
+  <section class="landing">
+
+    <!-- Mobile review -->
+    <div class="mobile-review">
+      <div class="chat">
+        <header class="chat-header">
+          <a class="chat-header__back" href="#"><i class="fas fa-chevron-left"></i></a>
+          <img class="chat-header__img" src="images/avatar.jpg" alt="person image">
+          <div class="chat-header__person-info">
+            <p class="chat-header__person-name">Samuel Green</p>
+            <p class="chat-header__status">Available to Walk</p>
+          </div>
+          <ul class="chat-header__options">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </header>
+        <div class="chat-body">
+          <div class="chat-message chat-message_received">
+            That sounds great. I’d be happy with that.
+          </div>
+          <div class="chat-message chat-message_received">
+            Could you send over some pictures of your dog, please?
+          </div>
+  
+          <div class="chat-message chat-message_sent-image">
+            <img src="images/dog-image-1.jpg" alt="dog">
+            <img src="images/dog-image-2.jpg" alt="dog">
+            <img src="images/dog-image-3.jpg" alt="dog">
+          </div>
+  
+          <div class="chat-message chat-message_sent">
+            Here are a few pictures. She’s a happy girl!
+          </div>
+    
+          <div class="chat-message chat-message_sent">
+            Can you make it?
+          </div>
+    
+          <div class="chat-message chat-message_received">
+            She looks so happy! The time we discussed works. How long shall I take her out for?
+          </div>
+    
+          <div class="chat-message offer-message">
+            <label for=""></label>
+            <input type="radio" name="offer" id="">
+            <p>30 minute walk</p>
+            <span>$29</span>
+          </div>
+    
+          <div class="chat-message offer-message">
+            <label for=""></label>
+            <input type="radio" name="offer" id="">
+            <p>1 hour walk</p>
+            <span>$49</span>
+          </div>
+        </div>
+        <!-- Mobile review -->
+  
+        <div class="write-message">
+          <input class="" type="text" name="" id="" placeholder="Type a message...">
+          <button type="submit"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- App Description -->
+    <div class="app-desc">
+      <h1 class="app-desc__heading">Simple booking</h1>
+      <p class="app-desc__desc">
+        Stay in touch with our dog walkers through the chat interface. This makes it easy to 
+        discuss arrangements and make bookings. Once the walk has been completed you can rate 
+        your walker and book again all through the chat.
+      </p>
+    </div>
+    <!-- App Description -->
+  </section>
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Amr Salman</a>.
+  </div>
+</body>
+</html>
